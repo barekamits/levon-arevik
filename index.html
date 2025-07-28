@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Levon & Arevik</title>
+  <title>Tigran & Kalina</title>
   <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
   <style>
     @font-face {
@@ -228,18 +228,28 @@
     }
 
     .names-section {
+      font-family: var(--title-font);
       padding: 20px 15px 30px;
       text-align: center;
       background: linear-gradient(135deg, #fefefe 0%, #f9f9f9 100%);
     }
-
     .couple-names {
-      font-family: 'Heghnar';
+      font-family: var(--title-font);
       font-size: 36px;
       color: #333;
       margin-bottom: 10px;
       line-height: 1.2;
     }
+
+    .ampersand {
+      font-family: var(--accent-font);
+      font-size: 40px;
+      color: #888;
+      margin: 0 8px;
+      position: relative;
+      top: -2px;
+    }
+    
 
     .scroll-down-indicator {
       position: relative;
@@ -666,7 +676,7 @@
               </div>
               <div class="photo-container"></div>
               <div class="names-section">
-                <h2 class="couple-names">Levon & Arevik</h2>
+                <h2 class="couple-names">Levon <span class="ampersand">&</span> Arevik</h2>
               </div>
             </div>
             <div class="scroll-down-indicator"></div>
