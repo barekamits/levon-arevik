@@ -1,560 +1,836 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Նկար ամբողջ էկրանով + տեքստ</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Levon & Arevik</title>
+  <link href="https://fonts.googleapis.com/css2?family=Allura&display=swap" rel="stylesheet">
   <style>
-    /* Ֆոնտերի միացում */
     @font-face {
-      font-family: 'Kamavor';
-      src: url('Kamavor-NA.otf') format('opentype');
+      font-family: 'Boloragir-Italic';
+      src: url('ArmBoloragir\ Italic.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
     }
-
     @font-face {
-      font-family: 'Brittany';
-      src: url('BrittanySignature.ttf') format('truetype');
+      font-family: 'Vrdznagir';
+      src: url('Vrdznagir.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
     }
-
     @font-face {
-      font-family: 'Maler';
-      src: url('Maler.ttf') format('truetype');
+      font-family: 'Heghnar';
+      src: url('HEGHNAR.TTF') format('truetype');
+      font-weight: normal;
+      font-style: normal;
     }
-
     @font-face {
-      font-family: 'Montserratarm-Light';
-      src: url('Montserratarm-Light.otf') format('opentype');
+      font-family: 'Kotayk-Italic';
+      src: url('Kotayk-Italic.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
     }
-      @font-face {
-        font-family: 'Montserratarm-Regular';
-        src: url('Montserratarm-Regular.otf') format('opentype');
-      }
-      @font-face {
-          font-family: 'Bold';
-          src: url('Bold.otf') format('opentype');
-        }
-      @font-face {
-        font-family: 'Montserratarm-Medium';
-        src: url('Montserratarm-Medium.otf') format('opentype');
-      }
     @font-face {
-      font-family: 'Montserratarm-SemiBold';
-      src: url('Montserratarm-SemiBold.otf') format('opentype');
+      font-family: 'Kotayk-Regular';
+      src: url('Kotayk-Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
     }
-      
+    :root {
+      --primary: #fff;
+      --bg-envelope-color: #ffffff;
+      --envelope-tab: #f0f0f0;
+      --envelope-cover: #fdfdfd;
+      --shadow-color: rgba(0, 0, 0, 0.2);
+      --section-spacing: 60px;
+      --main-font: 'Boloragir-Italic', cursive;
+      --title-font: 'Heghnar', serif;
+      --accent-font: 'Allura', cursive;
+    }
 
     body {
-      background-color: #D9D9D9;
       margin: 0;
       padding: 0;
-    }
-
-    .image-wrapper {
-      position: relative;
-      width: 100vw;
-      height: auto;
-    }
-
-    #main-image {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    /* Davit & Ani + Ամսաթիվ */
-    .overlay-text {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      color: #FFFFFF;
-      font-size: 48px;
-      font-family: 'Brittany', cursive;
-      text-align: center;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    .names {
-      bottom: 20%;
-    }
-
-    .date {
-      font-size: 15px;
-      bottom: 12%;
-      font-family: '', sans-serif;
-    }
-
-    /* ՄՆԱՑ */
-    .text-below {
-      color: #3B3B28;
-      font-size: 48px;
-      font-family: 'Kamavor', sans-serif;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    /* Քաունթդաուն */
-    .countdown {
-      color: #3B3B28;
+      box-sizing: border-box;
+      background: url('background.png') no-repeat center center;
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
       display: flex;
+      align-items: flex-start;
       justify-content: center;
-      gap: 40px;
-      margin-top: 10px;
-      text-align: center;
+      font-family: var(--main-font);
     }
 
-    .time-part .number {
-      font-size: 42px;
-      font-family: 'Maler',;
-    }
-
-    .time-part .label {
-      font-size: 20px;
-      margin-top: 5px;
-      font-family: 'Maler', sans-serif;
-    }
-
-    /* Սիրով սպասում ենք տեքստ */
-    .invitation-message {
-      color: #3B3B28;
-      font-family: 'Montserratarm-Medium',sans-serif;
-      font-size: 24px;
-      text-align: center;
-      margin: 30px 20px 40px;
-      line-height: 1.5;
-    }
-      .date-bar {
-        display: flex;
-        justify-content: center;
-        align-items: center;  /* Հիմա կենտրոնում են */
-        margin: 60px 40px 40px;
-        color: #3B3B28;
-        font-family: 'Montserratarm', sans-serif;
-        gap: 20px;
-      }
-
-      .side-block {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100px;
-      }
-
-      .side-block .line-top {
-        width: 100%;
-        height: 0.5px;             /* Շատ նուրբ գիծ */
-        background-color: #3B3B28;
-        margin-bottom: 6px;        /* Վերին գիծը տեքստի վերևում */
-        opacity: 0.3;
-        border-radius: 1px;
-      }
-
-      .side-block .line-bottom {
-        width: 100%;
-        height: 0.5px;             /* Շատ նուրբ գիծ */
-        background-color: #3B3B28;
-        margin-top: 6px;           /* Ներքևին գիծը տեքստի ներքևում */
-        opacity: 0.3;
-        border-radius: 1px;
-      }
-
-      .side-block .text {
-        font-family:'Montserratarm-Medium',sans-serif;
-        font-size: 20px;
-        font-weight: 500;
-        text-align: center;
-      }
-
-      .center-block {
-        font-size: 50px;
-        font-family: 'Bold';
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-      .center-block-church {
-        text-align: center;
-/* margin-top: 8px; /* Անհրաժեշտ բացատ */
-      }
-
-      .church-image {
-        max-width: 90px;
-        height: auto;
-        margin-top: -40px; /* բացատը կրճատելու համար բացասական margin */
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .church-caption {
-        margin-top: 6px; /* church նկարի և տեքստի միջև բացատ */
-        font-family: 'Kamavor';
-        font-size: 30px;
-        color: #3B3B28;
-        user-select: none;
-      }
-      .church-description {
-        margin-top: 30px;
-        font-family: 'Montserratarm-Medium', sans-serif;
-        font-size: 16px;
-        color: #3B3B28;
-        max-width: 300px;
-        margin-left: auto;
-        margin-right: auto;
-        line-height: 1.3;
-      }
-
-      .church-time {
-        margin-top: 14px;
-        font-family: 'Montserratarm-SemiBold', sans-serif;
-        font-size: 16px;
-        color: #3B3B28;
-      }
-    .how-to-reach {
-      background-color: #3B3B28; /* նույն մուգ գույնը ինչ նկարի մեջ */
-      color: white;
-      font-family: 'Montserratarm-Medium', sans-serif; /* կամ փոխիր քո հատուկ font-ով */
-      font-size: 16px;           /* Փոքր տառաչափ */
-      padding: 8px 24px;         /* Ավելի փոքր padding */
-      border-radius: 30px;       /* Կլորությունն էլ մի փոքր փոքրացրինք */
-      display: inline-block;
-      margin-top: 20px;
-      letter-spacing: 1px;
-      text-align: center;
-      user-select: none;
-      transition: 0.3s ease;
-    }
-
-    .how-to-reach:hover {
-      opacity: 0.85;
-      cursor: pointer;
-    }
-    .center-block-rest {
-            text-align: center;
-    /* margin-top: 8px; /* Անհրաժեշտ բացատ */
-          }
-
-          .cup-image {
-            max-width: 90px;
-            height: auto;
-            margin-top: 40px; /* բացատը կրճատելու համար բացասական margin */
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-          }
-          .rest-caption {
-            margin-top: 6px; /* church նկարի և տեքստի միջև բացատ */
-            font-family: 'Kamavor';
-            font-size: 30px;
-            color: #3B3B28;
-            user-select: none;
-          }
-          .rest-description {
-            margin-top: 30px;
-            font-family: 'Montserratarm-Medium', sans-serif;
-            font-size: 16px;
-            color: #3B3B28;
-            max-width: 300px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.3;
-          }
-
-          .rest-time {
-            margin-top: 14px;
-            font-family: 'Montserratarm-SemiBold', sans-serif;
-            font-size: 16px;
-            color: #3B3B28;
-          }
-    .bottom-image {
-      display: block;
-      width: 100%;
-      height: auto;
+    .container {
       margin-top: 40px;
-      user-select: none;
-    }
-    .center-block-schedule {
-            text-align: center;
-    /* margin-top: 8px; /* Անհրաժեշտ բացատ */
-          }
-
-          .map-image {
-            max-width: 90px;
-            height: auto;
-            margin-top: 40px; /* բացատը կրճատելու համար բացասական margin */
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-          }
-    .groom-description {
-      margin-top: 30px;
-      font-family: 'Montserratarm-Medium', sans-serif;
-      font-size: 16px;
-      color: #3B3B28;
-      max-width: 300px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.3;
-    }
-
-    .groom-time {
-      margin-top: 14px;
-      font-family: 'Montserratarm-SemiBold', sans-serif;
-      font-size: 16px;
-      color: #3B3B28;
-    }
-    .center-block-bride {
-            text-align: center;
-    /* margin-top: 8px; /* Անհրաժեշտ բացատ */
-          }
-
-          .ring-image {
-            max-width: 90px;
-            height: auto;
-            margin-top: 40px; /* բացատը կրճատելու համար բացասական margin */
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-          }
-    .bride-description {
-      margin-top: 30px;
-      font-family: 'Montserratarm-Medium', sans-serif;
-      font-size: 16px;
-      color: #3B3B28;
-      max-width: 300px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.3;
-    }
-
-    .bride-time {
-      margin-top: 14px;
-      font-family: 'Montserratarm-SemiBold', sans-serif;
-      font-size: 16px;
-      color: #3B3B28;
-    }
-    .center-block-fest {
-            text-align: center;
-    /* margin-top: 8px; /* Անհրաժեշտ բացատ */
-          }
-
-          .apse-image {
-            max-width: 90px;
-            height: auto;
-            margin-top: 40px; /* բացատը կրճատելու համար բացասական margin */
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-          }
-    .fest-description {
-      margin-top: 30px;
-      font-family: 'Montserratarm-Medium', sans-serif;
-      font-size: 16px;
-      color: #3B3B28;
-      max-width: 300px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.3;
-    }
-
-    .fest-time {
-      margin-top: 14px;
-      font-family: 'Montserratarm-SemiBold', sans-serif;
-      font-size: 16px;
-      color: #3B3B28;
-    }
-    .last-image {
-      display: block;
       width: 100%;
-      height: auto;
-      margin-top: 40px;
-      user-select: none;
-    }
-    .speech-caption {
-      margin-top: 6px; /* church նկարի և տեքստի միջև բացատ */
-      font-family: 'Kamavor';
-      font-size: 30px;
-      color: #3B3B28;
-      user-select: none;
-      text-align: center; /* Տեքստը մեջտեղ բերելու համար */
-    }
-    .speech-description {
-      margin-top: 15px;
-      font-family: 'Montserratarm-Medium', sans-serif;
-      font-size: 16px;
-      color: #3B3B28;
-      max-width: 350px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.4;
-      text-align: center;
-    }
-    .button-wrapper {
-      margin-top: 30px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
       align-items: center;
     }
 
-    .btn {
-      font-family: 'Montserratarm-Medium', sans-serif;
-      font-size: 22px;
-      color: white;
-      padding: 12px 45px;
-      border-radius: 40px;
-      border: none;
+    .envelope-wrapper {
+      margin-top: 60px;
+      background: var(--bg-envelope-color);
+      box-shadow: 0 0 40px var(--shadow-color);
+      position: relative;
+      width: 320px;
+      height: 250px;
+      perspective: 1000px;
+    }
+
+    .envelope {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .envelope::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      z-index: 1;
+      border-top: 140px solid var(--envelope-tab);
+      border-right: 160px solid transparent;
+      border-left: 160px solid transparent;
+      transform-origin: top;
+      transition: transform 0.6s ease-in-out 0.5s;
+      backface-visibility: hidden;
+    }
+
+    .envelope::after {
+      content: "";
+      position: absolute;
+      z-index: 0;
+      width: 0;
+      height: 0;
+      border-top: 140px solid transparent;
+      border-right: 160px solid var(--envelope-cover);
+      border-bottom: 110px solid var(--envelope-cover);
+      border-left: 160px solid var(--envelope-cover);
+    }
+
+    .letter {
+      position: absolute;
+      bottom: -350px;
+      left: -4%;
+      width: 104%;
+      height: auto;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease-in-out;
+      z-index: 3;
+    }
+
+    .flap .envelope::before {
+      transform: rotateX(180deg);
+      z-index: 1;
+    }
+
+    .flap .letter {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 0.6s;
+    }
+
+    .seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 66px;
+      height: 60px;
+      transform: translate(-50%, -50%);
+      z-index: 4;
       cursor: pointer;
+      background-image: url('seal.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      transition: opacity 0.5s ease;
     }
 
-    .btn-yes {
-      background-color: #4c4731; /* մուգ կանաչ-դարչնագույն */
+    .flap .seal {
+      opacity: 0;
+      pointer-events: none;
     }
 
-    .btn-no {
-      background-color: #7b685b; /* դարչնագույն-մոխրագույն */
+    .card-wrapper {
+      animation: cardEnter 1.2s ease-out forwards;
+      animation-delay: 0.6s;
+      opacity: 0;
+      transform: scale(0.95) translateY(20px);
+      min-height: 600px;
+      position: relative;
     }
+
+    @keyframes cardEnter {
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .save-the-date-card {
+      position: relative;
+      margin-top: 20px;
+      width: 340px;
+      max-width: 100%;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .card-header {
+      padding: 20px 15px 10px;
+      text-align: center;
+      background: linear-gradient(135deg, #fefefe 0%, #f9f9f9 100%);
+    }
+
+    .save-the-date-title {
+      font-family: var(--title-font);
+      font-size: 29px;
+      font-weight: 400;
+      color: #333;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .save-the-date-title .script {
+      font-family: var(--accent-font);
+      font-size: 12px;
+      text-transform: none;
+      letter-spacing: 1px;
+      color: #666;
+    }
+
+    .photo-container {
+      width: 100%;
+      height: 370px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.95);
+      background-image: url('firs-pic.png');
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out;
+    }
+
+    .flap .photo-container {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 1.2s;
+    }
+
+    .names-section {
+      padding: 20px 15px 30px;
+      text-align: center;
+      background: linear-gradient(135deg, #fefefe 0%, #f9f9f9 100%);
+    }
+
+    .couple-names {
+      font-family: 'Heghnar';
+      font-size: 36px;
+      color: #333;
+      margin-bottom: 10px;
+      line-height: 1.2;
+    }
+
+    .scroll-down-indicator {
+      position: relative;
+      margin-top: -85px;
+      bottom: -80px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 30px;
+      height: 30px;
+      border-right: 3px solid #666;
+      border-bottom: 3px solid #666;
+      animation: arrowFadeMove 2s ease-in-out infinite;
+      transform-origin: center;
+    }
+
+    @keyframes arrowFadeMove {
+      0% {
+        transform: translateX(-50%) rotate(45deg) translateY(0);
+        opacity: 1;
+      }
+      80% {
+        opacity: 0;
+      }
+      100% {
+        transform: translateX(-50%) rotate(45deg) translateY(20px);
+        opacity: 0;
+      }
+    }
+
+    .countdown-image-wrapper {
+      position: relative;
+      text-align: center;
+      margin-top: 90px;
+      margin-bottom: 40px;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1.5s ease;
+    }
+    
+    .countdown-background {
+      max-width: 90%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      display: block;
+      margin: 0 auto;
+    }
+
+    .countdown-overlay {
+      position: absolute;
+      top: 79%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-family: var(--main-font);
+      text-align: center;
+      width: 100%;
+      pointer-events: none;
+    }
+
+    .countdown-overlay h2 {
+      font-family: var(--main-font);
+      font-size: 36px;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+    }
+
+    .countdown-overlay .timer {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      font-size: 22px;
+      font-family: var(--main-font);
+    }
+
+    .countdown-overlay .timer div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .countdown-overlay .timer div div {
+      font-size: 40px;
+      font-weight: bold;
+      font-family: var(--main-font);
+    }
+
+    .invitation-text {
+      margin-top: 455px;
+      z-index: 1;
+      position: relative;
+      max-width: 600px;
+      padding: 30px 25px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      color: #333;
+      font-family: var(--main-font);
+      text-align: center;
+      line-height: 1.6;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1.5s ease;
+    }
+
+    .invitation-text h2 {
+      font-family: var(--title-font);
+      font-size: 32px;
+      margin-bottom: 25px;
+      color: #444;
+    }
+
+    .invitation-text p {
+      font-family: var(--main-font);
+      font-size: 20px;
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    .schedule-card {
+      margin-top: var(--section-spacing);
+      text-align: center;
+      max-width: 600px;
+      padding: 40px 30px;
+      background: transparent;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      font-family: var(--main-font);
+      color: #333;
+      font-size: 20px;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1.5s ease;
+    }
+
+    .schedule-title {
+      font-family: var(--title-font);
+      font-size: 36px;
+      margin-bottom: 30px;
+      color: #444;
+    }
+
+    .event-step {
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .event-step p {
+      font-family: var(--main-font);
+    }
+
+    .event-icon {
+      width: 60px;
+      height: auto;
+      display: block;
+      margin: 0 auto 10px;
+      opacity: 0.9;
+    }
+
+    .icon-placeholder {
+      font-size: 32px;
+      margin-top: 10px;
+      opacity: 0.6;
+    }
+
+    .place-name {
+      font-family: var(--main-font);
+      font-size: 18px;
+      color: #555;
+      margin: 8px 0;
+    }
+
+    .map-button {
+      margin-top: 8px;
+      padding: 8px 16px;
+      font-size: 16px;
+      font-family: var(--main-font);
+      border: none;
+      border-radius: 30px;
+      background-color: #444;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .map-button:hover {
+      background-color: #666;
+    }
+
+    .dresscode-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-top: var(--section-spacing);
+      text-align: center;
+      max-width: 600px;
+      padding: 30px 25px;
+      background: transparent;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      font-family: var(--main-font);
+      color: #333;
+      font-size: 20px;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1.5s ease;
+    }
+
+    .dresscode-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .dresscode-title {
+      position: relative;
+      left: -25px;
+      font-family: var(--title-font);
+      font-size: 38px;
+      color: #444;
+      margin: 0;
+    }
+
+    .dresscode-icon {
+      width: 36px;
+      height: 36px;
+      background-image: url('palette.png');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .dresscode-colors {
+      display: flex;
+      gap: 20px;
+    }
+
+    .color-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: 2px solid #aaa;
+    }
+
+    .dresscode-text {
+      font-family: var(--main-font);
+      font-size: 18px;
+      color: #444;
+      margin: 0;
+    }
+
+    body.opened .dresscode-card {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 1.9s;
+    }
+
+    .couple-photo {
+      margin-top: var(--section-spacing);
+      margin-bottom: 40px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1.5s ease;
+    }
+
+    .couple-photo img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transform: scale(1.05);
+    }
+    
+    .calendar-wrapper {
+      max-width: 360px;
+      margin: var(--section-spacing) auto 40px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      font-family: var(--main-font);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1.5s ease;
+    }
+
+    .calendar-title {
+      font-family: var(--title-font);
+      font-size: 32px;
+      color: #3B3B28;
+      margin-bottom: 10px;
+    }
+
+    .calendar-month {
+      font-family: var(--main-font);
+      font-size: 20px;
+      color: #3B3B28;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+
+    .calendar-days, .calendar-dates {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+
+    .calendar-days div {
+      font-family: var(--main-font);
+      font-weight: bold;
+      color: #3B3B28;
+      font-size: 14px;
+    }
+
+    .calendar-dates .day, .calendar-dates .empty {
+      font-family: var(--main-font);
+      padding: 10px 0;
+      background-color: transparent;
+      color: #3B3B28;
+      font-size: 14px;
+    }
+
+    .calendar-dates .highlight {
+      background-color: #3B3B28;
+      color: white;
+      font-weight: bold;
+    }
+
+    .heart-day {
+      position: relative;
+      width: 36px;
+      height: 33px;
+      margin: auto;
+      padding: 2px;
+      box-sizing: content-box;
+    }
+
+    .heart-outline {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .heart-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      font-size: 14px;
+      color: #3B3B28;
+      font-weight: bold;
+      font-family: var(--main-font);
+      pointer-events: none;
+    }
+
+    /* Թաքցնել ամբողջ կոնտենտը սկզբում */
+    body.no-show .container > *:not(.envelope-wrapper) {
+      display: none;
+    }
+
+    /* Երևացնել կոնտենտը ծրարը բացելուց հետո */
+    body.opened .invitation-text {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 1s;
+    }
+
+    body.opened .countdown-image-wrapper {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 1.3s;
+    }
+
+    body.opened .schedule-card {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 1.6s;
+    }
+
+    body.opened .announcement-card {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 1.9s;
+    }
+
+    body.opened .couple-photo {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 2.2s;
+    }
+
+    body.opened .calendar-wrapper {
+      opacity: 1;
+      transform: translateY(0);
+      transition-delay: 2.5s;
+    }
+
   </style>
 </head>
-<body>
-  <!-- Նկարը և վերին տեքստերը -->
-  <div class="image-wrapper">
-    <img src="first.png" alt="Նկար" id="main-image">
-    <div class="overlay-text names">Davit & Ani</div>
-    <div class="overlay-text date">29․11․2025</div>
-  </div>
-
-  <!-- ՄՆԱՑ -->
-  <div class="text-below">ՄՆԱՑ</div>
-
-  <!-- Քաունթդաուն -->
-  <div class="countdown" id="countdown">
-    <div class="time-part">
-      <div class="number" id="days">00</div>
-      <div class="label">օր</div>
-    </div>
-    <div class="time-part">
-      <div class="number" id="hours">00</div>
-      <div class="label">ժամ</div>
-    </div>
-    <div class="time-part">
-      <div class="number" id="minutes">00</div>
-      <div class="label">րոպե</div>
-    </div>
-    <div class="time-part">
-      <div class="number" id="seconds">00</div>
-      <div class="label">վրկ․</div>
-    </div>
-  </div>
-
-  <!-- Հրավերի ուղերձ -->
-  <div class="invitation-message">
-     Սպասում ենք Ձեզ՝ <br> նշելու մեր հարսանիքը։
-  </div>
-    <div class="date-bar">
-      <div class="side-block">
-        <div class="line-top"></div>
-        <div class="text">Նոյեմբեր</div>
-        <div class="line-bottom"></div>
+<body class="no-show">
+  <div class="container">
+    <div class="envelope-wrapper" id="envelope">
+      <div class="envelope">
+        <div class="letter">
+          <div class="card-wrapper">
+            <div class="save-the-date-card">
+              <div class="card-header">
+                <h1 class="save-the-date-title">
+                  SAVE <span class="script">the</span> DATE
+                </h1>
+              </div>
+              <div class="photo-container"></div>
+              <div class="names-section">
+                <h2 class="couple-names">Levon & Arevik</h2>
+              </div>
+            </div>
+            <div class="scroll-down-indicator"></div>
+          </div>
+        </div>
       </div>
-      <div class="center-block"> 29 </div>
-      <div class="side-block">
-        <div class="line-top"></div>
-        <div class="text">Շաբաթ</div>
-        <div class="line-bottom"></div>
+      <div class="seal" id="seal"></div>
+    </div>
+    <div class="invitation-text">
+      <h2>Սիրելի բարեկամներ և ընկերներ</h2>
+      <p>Մեր կյանքում կարևոր իրադարձություն է<br>
+      սպասվում՝ մենք ընտանիք ենք կազմում<br>
+      և ցանկանում ենք մասնակից<br>
+      դառնաք մեր երջանիկ օրվան։</p>
+
+      <p>Սիրով հրավիրում ենք Ձեզ՝ ներկա գտնվելու մեր հարսանյաց հանդեսին։</p>
+    </div>
+    <div class="countdown-image-wrapper">
+      <img src="hands.png" alt="Countdown ֆոն" class="countdown-background" />
+      <div class="countdown-overlay">
+        <h2>ՄՆԱՑԵԼ Է</h2>
+        <div class="timer">
+          <div><div id="days">00</div><span>ՕՐ</span></div>
+          <div><div id="hours">00</div><span>ԺԱՄ</span></div>
+          <div><div id="minutes">00</div><span>ՐՈՊԵ</span></div>
+          <div><div id="seconds">00</div><span>ՎՐԿ․</span></div>
+        </div>
       </div>
     </div>
-    <div class="center-block-church">
-      <img src="ekexeci.png" alt="Եկեղեցի" class="church-image">
-     <div class="church-caption">ԱՐԱՐՈՂՈՒԹՅՈՒՆ</div>
-          <div class="church-description">
-            Պսակադրությունը տեղի կունենա <br> Սբ․ Կաթողիկե եկեղեցում
-          </div>
-          <div class="church-time">
-            Ժամը 12։00
-          </div>
-      <div class="how-to-reach"> ԻՆՉՊԵՍ ՀԱՍՆԵԼ</div>
-
-    </div>
-   <div class="center-block-rest">
-     <img src="bajak.png" alt="բաժակ" class="cup-image">
-    <div class="rest-caption">ԵՐԵԿՈՒՅԹ</div>
-         <div class="rest-description">
-           «ԱՂԱԲԱԲՅԱՆՍ»<br> ՌԵՍՏՈՐԱՆԱՅԻՆ ՀԱՄԱԼԻՐ
-         </div>
-         <div class="rest-time">
-           Մեկնարկը՝ 17։00         </div>
-     <div class="how-to-reach"> ԻՆՉՊԵՍ ՀԱՍՆԵԼ</div>
-   </div>
   
-  <!-- Ներքևի նկարը -->
-  <img src="second.png" alt="Ներքևի նկար" class="bottom-image" />
+    
+    <div class="schedule-card">
+      <h2 class="schedule-title">Օրակարգ</h2>
 
-  <!--Օրակարգ-->
-  <div class="center-block-schedule">
-     <img src="qartez.png" alt="բաժակ" class="map-image">
-         <div class="groom-description">
-           Փեսայի տուն
-         </div>
-         <div class="groom-time">
-             10։00   
-         </div>
-   </div>
-  <div class="center-block-bride">
-     <img src="matani.png" alt="բաժակ" class="ring-image">
-         <div class="bride-description">
-           Հարսի տուն
-         </div>
-         <div class="bride-time">
-             12։00   
-         </div>
-   </div>
-  <div class="center-block-fest">
-     <img src="apse.png" alt="բաժակ" class="apse-image">
-         <div class="fest-description">
-           Ռեստորան
-         </div>
-         <div class="fest-time">
-             17։00   
-         </div>
-   </div>
-  <!-- last image -->
-  <img src="third.png" alt="Ներքևի նկար" class="last-image" />
-  <div class="speech-caption">ՍԻՐԵԼԻ  ԲԱՐԵԿԱՄ</div>
-  <div class="speech-description">
-    Մենք ցանկանում ենք քեզ հետ <br> կիսել  մեր կյանքի ամենակարևոր օրը
-  </div>
-  <div class="button-wrapper">
-    <button class="btn btn-yes">ԳԱԼԻՍ ԵՄ</button>
-    <button class="btn btn-no">ՉԵՄ ԳԱԼԻՍ</button>
+      <div class="event-step">
+        <img src="qartez.png" alt="Փեսայի տուն" class="event-icon">
+        <p><strong>Փեսայի տուն — 10:00</strong></p>
+      </div>
+
+      <div class="event-step">
+        <img src="matani.png" alt="Հարսի տուն" class="event-icon">
+        <p><strong>Հարսի տուն — 11:30</strong></p>
+      </div>
+
+      <div class="event-step">
+        <img src="ekexeci.png" alt="Եկեղեցի" class="event-icon">
+        <p><strong>Եկեղեցի — 12:30</strong></p>
+        <p class="place-name">Սուրբ Գրիգոր Նարեկացի</p>
+        <button class="map-button" onclick="openMap('church')">Ինչպես հասնել</button>
+      </div>
+
+      <div class="event-step">
+        <img src="apse.png" alt="Ռեստորան" class="event-icon">
+        <p><strong>Հարսանյաց Սրահ — 16:30</strong></p>
+        <p class="place-name"> «ՏԻԳՐԱՆ ՄԵԾ » Ռեստորանային համալիր</p>
+        <button class="map-button" onclick="openMap('restaurant')">Ինչպես հասնել</button>
+      </div>
+    </div>
+    
+    <div class="couple-photo">
+      <img src="last.png" alt="Զույգի նկար">
+    </div>
+    
+    <div class="calendar-wrapper">
+      <div class="calendar-title">Our Wedding Day</div>
+      <div class="calendar-month">Օգոստոս 2025</div>
+      <div class="calendar-days">
+        <div>Երկ</div>
+        <div>Երք</div>
+        <div>Չրք</div>
+        <div>Հնգ</div>
+        <div>Ուրբ</div>
+        <div>Շբթ</div>
+        <div>Կիր</div>
+      </div>
+      <div class="calendar-dates">
+        <div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div>
+        <div class="day">4</div><div class="day">5</div><div class="day">6</div><div class="day">7</div><div class="day">8</div><div class="day">9</div><div class=" heart-day">
+          <svg viewBox="0 0 32 29" class="heart-outline">
+            <path d="M23.6,0c-2.9,0-5.4,1.8-6.6,4.3C15.8,1.8,13.3,0,10.4,0C4.7,0,0,4.7,0,10.4c0,6.1,7.2,11.2,15.3,18.1
+            c0.3,0.3,0.8,0.3,1.1,0c8.1-6.9,15.3-12,15.3-18.1C32,4.7,27.3,0,21.6,0z"
+            fill="none" stroke="#3B3B28" stroke-width="1.5"/>
+          </svg>
+          <span class="heart-text">10</span>
+        </div>
+        <div class="day">11</div><div class="day">12</div><div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div>
+        <div class="day">18</div><div class="day">19</div><div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div>
+        <div class="day">25</div><div class="day">26</div><div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day ">30</div><div class="day">31</div>
+      </div>
+    </div>
+    <!-- ՀԱՅՏԱՐԱՐՈՒԹՅԱՆ ԲԼՈԿԸ՝ ՏԵՂԱՓՈԽՎԱԾ ՎԵՐՋԻՆ -->
+    <div class="dresscode-card">
+      <div class="dresscode-header">
+        <div class="dresscode-icon"></div>
+        <h2 class="dresscode-title">Dress Code</h2>
+      </div>
+      <div class="dresscode-colors">
+        <div class="color-circle" style="background-color: #8B0000;"></div>
+        <div class="color-circle" style="background-color: #A0522D;"></div>
+        <div class="color-circle" style="background-color: #F5F5DC;"></div>
+      </div>
+      <p class="dresscode-text">Ուրախ կլինենք Ձեզ տեսնել այսպիսի գունային համադրություններով։</p>
+    </div>
+    <audio id="bgMusic" src="Ed Sheeran - Perfect_(play.muzfan.net).mp3"></audio>
+
   </div>
 
-  <!-- Քաունթդաունի սկրիպտ -->
   <script>
-    const targetDate = new Date("2025-11-29T00:00:00").getTime();
+    const envelope = document.getElementById('envelope');
+    const seal = document.getElementById('seal');
+
+    seal.addEventListener('click', () => {
+      if (!envelope.classList.contains('flap')) {
+        envelope.classList.add('flap');
+
+        document.body.classList.remove('no-show');
+        document.body.classList.add('opened');
+
+        const music = document.getElementById('bgMusic');
+        music.currentTime = 2.30; // որ վայրկյանից սկսի
+        music.volume = 0.5;     // ձայնի մակարդակը
+        music.play();
+
+        setTimeout(() => {
+          document.querySelector('.letter').scrollIntoView({ behavior: 'smooth' });
+        }, 800);
+      }
+    });
+
+    // Countdown Logic
+    const targetDate = new Date("2025-08-10T00:00:00").getTime();
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
 
     function updateCountdown() {
       const now = new Date().getTime();
       const distance = targetDate - now;
-
-      if (distance < 0) {
-        document.getElementById("countdown").innerHTML = "Օրը հասել է!";
-        return;
-      }
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      document.getElementById("days").textContent = days.toString().padStart(2, '0');
-      document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
-      document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
-      document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+      daysEl.innerText = String(days).padStart(2, '0');
+      hoursEl.innerText = String(hours).padStart(2, '0');
+      minutesEl.innerText = String(minutes).padStart(2, '0');
+      secondsEl.innerText = String(seconds).padStart(2, '0');
     }
 
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    //map function
+    function openMap(place) {
+      let url = '';
+      if (place === 'church') {
+        url = 'https://yandex.by/maps/-/CHDojSm0'
+      } else if (place === 'restaurant') {
+        url = 'https://yandex.by/maps/-/CHDonV-S';
+      }
+      window.open(url, '_blank');
+    }
   </script>
 </body>
 </html>
